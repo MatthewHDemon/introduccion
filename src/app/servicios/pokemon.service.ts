@@ -9,7 +9,10 @@ export class PokemonService {
 
   constructor(private http: HttpClient) { }
   getPokemons():Observable<any> {
-    return this.http.get("https://pokeapi.co/api/v2/pokemon/ditto/?limit=200")
+    return this.http.get("https://pokeapi.co/api/v2/pokemon/?limit=200")
+  }
+  getPokemon(index:number){
+    return this.http.get(`https://pokeapi.co/api/v2/pokemon/${index}`)
   }
 }
 
