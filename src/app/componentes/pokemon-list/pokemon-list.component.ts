@@ -9,6 +9,7 @@ import { PokemonService } from 'src/app/servicios/pokemon.service';
 export class PokemonListComponent implements OnInit {
   pokemons=[];
   pokemonsData:any[]=[];
+  busqueda: string="";
   constructor(private pokemonService: PokemonService) { }
 
   ngOnInit(): void {
@@ -20,11 +21,17 @@ export class PokemonListComponent implements OnInit {
   }
 
   getPokemonsData(){
+    this.pokemonsData=[];
     for (let i = 1; i <=150; i++) {
-      this.pokemonService.getPokemon(i).subscribe(respuesta => {
-        this.pokemonsData.push(respuesta);
+      this.pokemonService.getPokemon(i).subscribe((respuesta:any) => {
+        if(this.busqueda === "" || respuesta.name.includes(this.busqueda)) {
+          this.pokemonsData.push(respuesta);
+        }
       });
     }
     console.log(this.pokemonsData)
+  }
+  buscarPokemons(){
+    this.getPokemonsData();
   }
 }
